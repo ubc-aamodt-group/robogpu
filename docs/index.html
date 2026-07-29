@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoboGPU | MICRO 2026</title>
+    <meta name="description" content="RoboGPU: Accelerating GPU Collision Detection for Robotics">
+    <meta name="keywords" content="MICRO 2026, RoboGPU, GPU Collision Detection, Robotics">
+    <meta name="author" content="Lufei Liu, Liwei Xue, Yuan Hsi Chou, Jocelyn Zhao, Lara Kawasme, Youssef Mohammed, Tor M. Aamodt">
+    <meta property="og:title" content="RoboGPU | MICRO 2026">
+    <meta property="og:description" content="RoboGPU: Accelerating GPU Collision Detection for Robotics">`
+    <meta property="og:image" content="./images/icon.svg">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="RoboGPU | MICRO 2026">
+    <meta property="og:locale" content="en_CA">
+
+    <link rel="icon" href="./images/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="./images/icon.svg" type="image/svg+xml">
+
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Serif+Text:ital@0;1&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital@1&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div id="header">
+        <h1>RoboGPU:</h1>
+        <h4>Accelerating GPU Collision Detection for Robotics</h4>
+        <h5>MICRO 2026</h5>
+        <h2><a href="https://lufei.ca">Lufei Liu</a>, Liwei Xue, Yuan Hsi Chou, Jocelyn Zhao, Lara Kawasme, Youssef Mohammed, <a href="https://people.ece.ubc.ca/~aamodt/">Tor M. Aamodt</a>
+        </h2>
+        <h5>University of British Columbia</h5>
+        <div class="group">
+            <h3>Details coming soon!</h3>
+            <!-- <a class="tag" href="./reframe-paper.pdf"><span>Paper</span></a>
+            <a class="tag" href="https://github.com/ubc-aamodt-group/reframe-layer-caching"><span>Code</span></a>
+            <a class="tag" href="./icml2025_reframe_poster.pdf"><span>Poster</span></a>
+            <a class="tag" href="./slides_export.pdf"><span>Slides</span></a> -->
+        </div>
+    </div>
+    <div class="section" id="abstract-section">
+        <div class="container">
+            <h3>Abstract</h3>
+            <p>Autonomous robots are anticipated to be deployed soon in domains ranging from transportation to healthcare and home assistance. Enabling autonomous robotics requires a computation platform flexible enough to execute a diverse and evolving workload while meeting real-time requirements. We believe a GPU-like architecture will be a key component of such platforms. Recent GPUs combine a flexible parallel processing fabric augmented with efficient support for important application domains via embedded accelerators (e.g., Tensor Cores), and a GPU-like architecture has reportedly been adopted for Tesla's upcoming AI5 accelerator. While current GPUs are effective at supporting emerging neural motion planners, we find that collision detection is crucial for evaluating their proposed trajectories and that this step appears to require dedicated acceleration to operate in real-time. In this work, we propose RoboCore, an accelerator block embedded within a robotics-focused GPU (RoboGPU) architecture. We explore and compare architectural modifications to address the gaps of existing ray tracing accelerators (RTAs) for robotics and find that RoboCore computes collision queries 2.8x faster than RTA implementations using 48% less energy with 2% more area than RTAs. RoboCore is 13.3x faster than a CUDA baseline, and achieves 3.4x end-to-end speedup on a neural motion planner and 1.1x speedup on Monte Carlo Localization compared to a baseline GPU. This demonstrates that a hybrid approach of embedded specialization within a flexible general-purpose GPU architecture is suitable for supporting advancements in robotics.</p>
+        </div>
+    </div>
+</body>
+<footer>
+    <div id="footer">
+        <p></p>
+        <p>robogpu &middot; micro 2026</p>
+    </div>
+</footer>
+
+</html>
