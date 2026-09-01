@@ -15,9 +15,22 @@ In this work, we propose RoboCore, an accelerator block embedded within a roboti
 
 ### In this repository:
 
-- `./docs`
+- `./docs/`
     - Website contents
-- `./presentation` 
+- `./presentation/` 
     - *[Coming Soon]*
-- `./code`
-    - *[Coming Soon]*
+- `./code/`
+    - `simulator/`: Modified version of Vulkan-Sim with model of RoboCores. Based on Vulkan-Sim simulator used in TTA/TTA+. Please refer to Vulkan-Sim instructions.
+    - `workloads/`: Evaluated workloads. Individual instructions are available in local README files. 
+        - `collision_detection`: Main collision detection workload. 
+    - *[More coming soon]*
+
+
+### Quick Start
+
+1. Setup and compile Vulkan-Sim (please follow instructions from Vulkan-Sim). Source environment setup script `source ./code/simulator/setup_environment`
+
+2. Compile collision detection workload `cd ./code/workloads/collision_detection; make`.
+
+3. Run baseline configuration `./code/workloads/collision_detection/main 1 40000 1`. Run RoboCore configuration `./code/workloads/collision_detection/rtmain 1 40000 1`. Compare `gpu_sim_cycle` for execution time.
+
