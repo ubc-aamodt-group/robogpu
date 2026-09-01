@@ -93,6 +93,7 @@ a:hover {
 #header h2 {
     font-size: 1.2rem;
     padding-bottom: 1rem;
+    font-weight: 200;
 }
 
 #header h5 {
@@ -183,7 +184,7 @@ a:hover {
 .highlight {
     /* font-family: "DM Serif Display", serif; */
     color: var(--accent);
-    /* font-weight: 600; */
+    font-weight: 600;
 }
 
 pre {
