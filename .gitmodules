@@ -1,3 +1,6 @@
 [submodule "code/workloads/mpinet/mpinet"]
 	path = code/workloads/mpinet/mpinet
 	url = https://github.com/NVlabs/motion-policy-networks.git
+[submodule "code/workloads/rowild/rowild"]
+	path = code/workloads/rowild/rowild
+	url = https://github.com/cmu-roboarch/rowild.git

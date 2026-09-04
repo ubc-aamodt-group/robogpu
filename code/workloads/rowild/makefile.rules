@@ -1,0 +1,63 @@
+INC := $(foreach d, $(INC_DIRS), -I$d)
+SRC_HOST := $(foreach d, $(SRC_DIRS), $(wildcard $d/*.cpp))
+SRC_DEV := $(foreach d, $(SRC_DIRS), $(wildcard $d/*.cu))
+OBJ_HOST := $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(notdir $(SRC_HOST)))
+OBJ_DEV := $(patsubst %.cu, $(OBJ_DIR)/%.o, $(notdir $(SRC_DEV)))
+RSIM_OBJ_HOST := $(patsubst %.cpp, $(RSIM_OBJ_DIR)/%.o, $(notdir $(SRC_HOST)))
+RSIM_OBJ_DEV := $(patsubst %.cu, $(RSIM_OBJ_DIR)/%.o, $(notdir $(SRC_DEV)))
+EXE := $(BIN_DIR)/$(EXE_NAME)
+RSIM_EXE := $(BIN_DIR)/$(EXE_NAME).rsim
+
+CXX	:= nvcc
+CXXFLAGS := -std=c++17 $(INC) -O3 -MMD -MP "--compiler-options=-Wall -Wfatal-errors -fopenmp" --extended-lambda  -arch=sm_75 -maxrregcount=32 --expt-relaxed-constexpr
+LDFLAGS := -Xcompiler=-fopenmp -lcublas -lcurand -lcudart --cudart shared  -L$(CUDA_HOME)/lib64 -arch=sm_75
+VSIM_FLAGS := -DTTA
+
+.PHONY: all clean deepclean debug performance base rsim
+
+all: base rsim
+
+base: $(EXE) 
+
+performance: CXXFLAGS += -DNASSERT
+performance: $(EXE)
+
+debug: CXXFLAGS += -DDEBUG -g -G --ptxas-options -v
+debug: $(EXE)
+
+rsim: CXXFLAGS += $(VSIM_FLAGS)
+rsim: $(RSIM_EXE)
+
+$(EXE): $(OBJ_HOST) $(OBJ_DEV) | $(BIN_DIR)
+	$(CXX) $^ $(LDFLAGS) -o $@
+
+$(RSIM_EXE): $(RSIM_OBJ_HOST) $(RSIM_OBJ_DEV) | $(BIN_DIR)
+	$(CXX) $^ $(LDFLAGS) -o $@
+
+$(BIN_DIR) $(OBJ_DIR) $(RSIM_OBJ_DIR):
+	mkdir -p $@
+
+$(OBJ_HOST) : %.o: $(SRC_HOST) | $(OBJ_DIR)
+	$(CXX) $(CXXFLAGS) -c $(filter %$(notdir $*).cpp,$^) -o $@
+
+$(OBJ_DEV) : %.o: $(SRC_DEV) | $(OBJ_DIR)
+	$(CXX) $(CXXFLAGS) -c $(filter %$(notdir $*).cu,$^) -o $@
+
+$(RSIM_OBJ_HOST) : %.o: $(SRC_HOST) | $(RSIM_OBJ_DIR)
+	$(CXX) $(CXXFLAGS) -c $(filter %$(notdir $*).cpp,$^) -o $@
+
+$(RSIM_OBJ_DEV) : %.o: $(SRC_DEV) | $(RSIM_OBJ_DIR)
+	$(CXX) $(CXXFLAGS) -c $(filter %$(notdir $*).cu,$^) -o $@
+
+deepclean: clean
+	@$(RM) -rv *.out *.o || true
+
+clean:
+	@$(RM) -rv $(EXE) $(BIN_DIR) $(OBJ_DIR) $(RSIM_OBJ_DIR) || true
+
+-include $(OBJ_HOST:.o=.d)
+-include $(OBJ_DEV:.o=.d)
+-include $(RSIM_OBJ_HOST:.o=.d)
+-include $(RSIM_OBJ_DEV:.o=.d)
+
+
