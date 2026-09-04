@@ -177,8 +177,18 @@ a:hover {
     display: inline-block;
 }
 
+.tag.disabled {
+    background-color: darkgray;
+    color: gray;
+}
+
 .tag:hover {
     color: var(--background);
+}
+
+.tag.disabled:hover {
+    color: gray;
+    text-decoration: none;
 }
 
 .highlight {
