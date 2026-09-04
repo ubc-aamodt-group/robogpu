@@ -1,0 +1,3 @@
+[submodule "code/workloads/mpinet/mpinet"]
+	path = code/workloads/mpinet/mpinet
+	url = https://github.com/NVlabs/motion-policy-networks.git
