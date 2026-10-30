@@ -43,10 +43,9 @@
         </h2>
         <h5><i>University of British Columbia</i></h5>
         <div class="group">
-            <h3>Details coming soon!</h3>
             <a class="tag" href="https://arxiv.org/pdf/2603.01517"><span>Paper</span></a>
             <a class="tag" href="https://github.com/ubc-aamodt-group/robogpu"><span>Code</span></a>
-            <a class="tag disabled" ><span>Poster</span></a>
+            <a class="tag" href="../presentation/poster.pdf"><span>Poster</span></a>
             <a class="tag disabled" ><span>Slides</span></a>
         </div>
     </div>
@@ -57,10 +56,33 @@
             <p><span class="highlight">In this work, we propose RoboCore, an accelerator block embedded within a robotics-focused GPU (RoboGPU) architecture.</span> We explore and compare architectural modifications to address the gaps of existing ray tracing accelerators (RTAs) for robotics and find that <span class="highlight">RoboCore computes collision queries 2.8x faster than RTA implementations</span> using 48% less energy with 2% more area than RTAs. RoboCore is 13.3x faster than a CUDA baseline, and achieves <span class="highlight">3.4x end-to-end speedup</span> on a neural motion planner and 1.1x speedup on Monte Carlo Localization compared to a baseline GPU. <span class="highlight">This demonstrates that a hybrid approach of embedded specialization within a flexible general-purpose GPU architecture is suitable for supporting advancements in robotics.</span></p>
         </div>
     </div>
+    <div class="section" id="neural-planner-section">
+        <div class="container">
+            <h3>Neural Planners in Robotics</h3>
+            <p>Modern robots commonly rely on a vision-language-action model to plan actions. These neural planners have several attractive properties over classical motion planning approaches.  They can generalize across different environments, plan quickly, achieve high task success rates, and re-plan in real time as the situation changes. However, neural planners typically do not verify their trajectories to detect possible collisions. Although neural planners learn to avoid obstacles from their training data, learned avoidance is not perfect and up to 18% of these so-called “successfully” generated trajectories can actually be in collision with environment obstacles. As a result, neural planners need to be coupled with an explicit collision check. </p>
+            <img src="./images/vla.png" class="center">
+        </div>
+    </div>
+    <div class="section" id="robogpu-section">
+        <div class="container">
+            <h3>Architecture</h3>
+            <p>Our collision detection algorithm relies on the separating axis theorem. There are 15 candidate axes to test for a 3D collision. These tests involve repeated arithmetic operations and comparisons, making them a promising target for specialized hardware. At the same time, the algorithm introduces early exit opportunities when a separating axis is found. RoboCore organizes these computations into stages and completes the collision check serially for each axis, exiting when a separating axis is found. Each stage operates as its own individual unit, with a 4-stage pipelined data path to execute the necessary arithmetic computation. A controller tracks the number of axes completed with counters and routes queries accordingly. We design these units to fit into the architecture of a generalized tree traversal accelerator, TTA+. This combines our accelerated collision detection with a programmable interface that potentially supports other robotics kernels. </p>
+            <img src="./images/arch.png" class="center">
+        </div>
+    </div>
+    <div class="section" id="results-section">
+        <div class="container">
+            <h3>Results</h3>
+            <p>For our main results, we consider three neural motion planners: MPNet, MPiNet, and Alpamayo-R1. Since MPiNet and Alpamayo-R1 both do not include explicit collision detection by default, we append the operation. Using our proposed RoboCore architecture, we can significantly accelerate the collision detection latency. For certain operations such as point cloud processing in MPiNet, we can further reduce execution latency. As a result, RoboGPU can execute an end-to-end neural motion planner faster even with the additional collision check. </p>
+            <img src="./images/results.png" class="center">
+            <p>RoboGPU is 13.3x faster than CUDA running on a baseline GPU and 2.8x faster than Mochi running on a ray tracing accelerator for collision detection.
+            </p>
+            <img src="./images/speedup.png" class="center">
+        </div>
+    </div>
 </body>
 <footer>
     <div id="footer">
-        <p></p>
         <p>robogpu &middot; micro 2026</p>
     </div>
 </footer>
