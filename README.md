@@ -1,6 +1,6 @@
 ## RoboGPU: Accelerating GPU Collision Detection for Robotics
 
-***To appear in Int'l Symposium on Microarchitecture 2026***
+***in IEEE/ACM International Symposium on Microarchitecture 2026***
 
 ### Authors: 
 Lufei Liu, Liwei Xue, Yuan Hsi Chou, Jocelyn Zhao, Lara Kawasme, Youssef Mohammed, and Tor M. Aamodt
@@ -17,8 +17,8 @@ In this work, we propose RoboCore, an accelerator block embedded within a roboti
 
 - `./docs/`
     - Website contents
-- `./presentation/` 
-    - *[Coming Soon]*
+- `./docs/presentation/` 
+    - paper, poster, and presentation slides (coming soon)
 - `./code/`
     - `simulator/`: Modified version of Vulkan-Sim with model of RoboCores. Based on Vulkan-Sim simulator used in TTA/TTA+. Please refer to Vulkan-Sim instructions.
     - `workloads/`: Evaluated workloads. Individual instructions are available in local README files. 
