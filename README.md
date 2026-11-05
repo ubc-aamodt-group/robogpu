@@ -18,7 +18,7 @@ In this work, we propose RoboCore, an accelerator block embedded within a roboti
 - `./docs/`
     - Website contents
 - `./docs/presentation/` 
-    - paper, poster, and presentation slides (coming soon)
+    - paper, poster, and presentation slides
 - `./code/`
     - `simulator/`: Modified version of Vulkan-Sim with model of RoboCores. Based on Vulkan-Sim simulator used in TTA/TTA+. Please refer to Vulkan-Sim instructions.
     - `workloads/`: Evaluated workloads. Individual instructions are available in local README files. 
